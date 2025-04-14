@@ -6,17 +6,16 @@ using TirsvadCLI.MenuPaginator;
 internal class Program
 {
     const string TITLE = "Pfx Certificate manager";
-    const Version VERSION;
+    static readonly Version? _version;
 
     static Program()
     {
-        VERSION = GetVersion();
+        _version = GetVersion();
     }
 
-    static string GetVersion()
+    static Version? GetVersion()
     {
-        Version? version = Assembly.GetExecutingAssembly().GetName().Version;
-        return version != null ? $"{version.Major}.{version.Minor}" : "Unknown version";
+        return Assembly.GetExecutingAssembly().GetName().Version;
     }
 
     static void CreatePfx()
@@ -91,7 +90,7 @@ internal class Program
         } while (true);
     }
 
-    static void ArgsAction()
+    static void ArgsAction(string[] args)
     {
         for (int i = 0; i < args.Length; i++)
         {
@@ -131,7 +130,7 @@ internal class Program
     {
         if (args.Length > 0)
         {
-            ArgsAction();
+            ArgsAction(args);
         }
         else
             Menu();
